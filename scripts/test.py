@@ -8,6 +8,7 @@ from tqdm import trange
 from go1_gym.envs import *
 from go1_gym.envs.base.legged_robot_config import Cfg
 from go1_gym.envs.go1.go1_config import config_go1
+from go1_gym.envs.go1_fw.velocity_tracking import VelocityTrackingSkatingEnv
 from go1_gym.envs.go1.velocity_tracking import VelocityTrackingEasyEnv
 
 
@@ -185,7 +186,8 @@ def run_env(render=False, headless=False):
     Cfg.domain_rand.randomize_lag_timesteps = True
     Cfg.control.control_type = "actuator_net"
 
-    env = VelocityTrackingEasyEnv(sim_device='cuda:0', headless=False, cfg=Cfg)
+    # env = VelocityTrackingEasyEnv(sim_device='cuda:0', headless=False, cfg=Cfg)
+    env = VelocityTrackingSkatingEnv(sim_device='cuda:0', headless=False, cfg=Cfg)
     env.reset()
 
     if render and headless:
