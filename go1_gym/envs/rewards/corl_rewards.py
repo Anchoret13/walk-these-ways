@@ -200,3 +200,36 @@ class CoRLRewards:
         reward = torch.sum(torch.square(err_raibert_heuristic), dim=(1, 2))
 
         return reward
+    
+    def _reward_legs_energy(self):
+        return torch.sum(torch.square(self.torques * self.dof_vel), dim = 1)
+    
+    def _reward_legs_energy_abs(self):
+        return torch.sum(torch.abs(self.torques * self.dof_vel), dim=1)
+
+    def _reward_lin_vel_x(self):
+        return self.root_states[:, 7]
+    
+    def _reward_lin_vel_y_abs(self):
+        return torch.abs(self.root_states[:, 8])
+    
+    def _reward_lin_vel_y_square(self):
+        return torch.square(self.root_states[:, 8])
+    
+    def _reward_exceed_torque_limits_i(self):
+        max_torques = torch.abs(self.torque_limits) # TODO: update this
+        exceed_torque_each_dof = max_torques > self.torque_limits
+        exceed_torque = exceed_torque_each_dof.any(dim= 1)
+        return exceed_torque.to(torch.float32)
+
+    def _reward_alive(self):
+        return 1.
+    
+    def _reward_tracking_lin_vel_x(self):
+        # Reward for Tracking of linear velocity commands on x-axis
+        lin_vel_error = torch.square(self.commands[:, 0] - self.base_lin_vel[:, 0])
+        return torch.exp(-lin_vel_error/self.cfg.rewards.tracking_sigma)
+    
+    #------------ kinematics constrains as rewards ----------------
+    def _reward_skating_kinematics_constraints(self):
+        return 0

@@ -1,4 +1,4 @@
-runs
+# runs
 # Jaynes secret files
 .secret*
 # ml_logger cache files
@@ -57,7 +57,7 @@ Thumbs.db
 .vscode
 # logs
 logs
-runs
+# runs
 
 # other
 *.egg-info
@@ -68,3 +68,7 @@ docker/rsc
 *.jit
 tmp
 *.tar
+
+# Explicitly envs and runs
+!./go1_gym/envs
+!./runs
