@@ -105,7 +105,6 @@ def play_go1(headless=True):
     import os
 
     
-
 def test_rsl_model():
     # logdir = glob.glob(f"../runs/{label}/*")
     label = "gait-conditioned-agility/pretrain-v0/train"
