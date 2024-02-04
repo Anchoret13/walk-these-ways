@@ -208,7 +208,7 @@ def train_go1(headless=True):
     Cfg.commands.gaitwise_curricula = True
 
     # env = VelocityTrackingEasyEnv(sim_device='cuda:0', headless=False, cfg=Cfg)
-    env = VelocityTrackingSkatingEnv(sim_device='cuda:0', headless=True, cfg=Cfg)
+    env = VelocityTrackingSkatingEnv(sim_device='cuda:0', headless=False, cfg=Cfg)
 
     # log the experiment parameters
     logger.log_params(AC_Args=vars(AC_Args), PPO_Args=vars(PPO_Args), RunnerArgs=vars(RunnerArgs),
